@@ -14,18 +14,7 @@ void setup() {
   pinMode(PIN_DETECTOR_OUT_2_3, INPUT);
   pinMode(PIN_DETECTOR_OUT_2_4, INPUT);
   pinMode(PIN_DETECTOR_OUT_2_5, INPUT);
-  
-  pinMode(PIN_DETECTOR_VIN_1_1, OUTPUT);
-  pinMode(PIN_DETECTOR_VIN_1_2, OUTPUT);
-  pinMode(PIN_DETECTOR_VIN_1_3, OUTPUT);
-  pinMode(PIN_DETECTOR_VIN_1_4, OUTPUT);
-  pinMode(PIN_DETECTOR_VIN_1_5, OUTPUT);
-  pinMode(PIN_DETECTOR_VIN_2_1, OUTPUT);
-  pinMode(PIN_DETECTOR_VIN_2_2, OUTPUT);
-  pinMode(PIN_DETECTOR_VIN_2_3, OUTPUT);
-  pinMode(PIN_DETECTOR_VIN_2_4, OUTPUT);
-  pinMode(PIN_DETECTOR_VIN_2_5, OUTPUT);
-    
+      
   pinMode(PIN_DETECTOR_STATUS_1_1, OUTPUT);
   pinMode(PIN_DETECTOR_STATUS_1_2, OUTPUT);
   pinMode(PIN_DETECTOR_STATUS_1_3, OUTPUT);
@@ -46,62 +35,6 @@ void setup() {
   pinMode(PIN_MAGNET_STATUS_2, OUTPUT);
   pinMode(PIN_MAGNET_STATUS_3, OUTPUT);
   pinMode(PIN_MAGNET_STATUS_4, OUTPUT);
-
-
-  /*
-  This code example enables the Timer3 interrupts, loads the Timer3 period
-  register, and starts the timer.
-  When a Timer3 period match interrupt occurs, the interrupt service routine must clear
-  the Timer3 interrupt status flag in software.
-  */
-  T3CON = 0x0; // Stop the timer and clear the control register,
-  // prescaler at 1:1,internal clock source
-  TMR3 = 0x0; // Clear the timer register
-  //PR3 = 0x1F40; // Load the period register to 8,000 decimal - 80mhz / 8,000 = 10khz - 10 detectors
-  //PR3 = 0x0FA0; // Load the period register to 4,000 decimal - 80mhz / 4,000 = 20khz - 10 detectors
-  //PR3 = 0x0BB8; // Load the period register to 3,000 decimal - 80mhz / 3,000 = 26khz - 10 detectors
-  //PR3 = 0x3E80; // Load the period register to 16,000 decimal - 80mhz / 16,000 = 5khz - 10 detectors
-  PR3 = 0x29AA; // Load the period register to 10,066 decimal - 80mhz / 10,066 = 7.5khz - 10 detectors
-  //PR3 = 0x4E20; // Load the period register to 20,000 decimal - 80mhz / 20,000 = 4khz - 2 detectors
-  IPC3SET = 0x0000000C; // Set priority level = 3
-  IPC3SET = 0x00000001; // Set subpriority level = 1
-  // Can be done in a single operation by assigning PC2SET = 0x0000000D
-  IFS0CLR = 0x00001000; // Clear the timer interrupt status flag
-  IEC0SET = 0x00001000; // Enable timer interrupts
-  T3CONSET = 0x8000; // Start the timer
-  
-  //  Another way to set up the timer, not interupts though still need to figure it out
-  //  CloseTimer3(); //Close the timer to reset it
-  //  OpenTimer3(T3_ON | T3_PS_1_1, 40000); //Open the timer at the 80Mhz/40000 frequency, 2000khz (and default multiplier)
-
-  //set up timer2 on pic32
-  CloseTimer2(); //Close the timer to reset it
-  OpenTimer2(T2_ON | T2_PS_1_1, 2105); //Open the timer at the 80Mhz/2105 frequency (and default multiplier)
-
-  //Set up pwm pin 3 on pic32
-  CloseOC1(); //Close the PWM pin
-  OpenOC1(OC_ON | OC_TIMER2_SRC | OC_PWM_FAULT_PIN_DISABLE, 0, 0); //Open the PWM pin with timer 2 as the source and 100% duty cycle
-  SetDCOC1PWM(PR2 / 2); //Set the duty cycle of PWM pin to half of the period
-  
-  //Set up pwm pin 5 on pic32  
-  CloseOC2(); //Close the PWM pin
-  OpenOC2(OC_ON | OC_TIMER2_SRC | OC_PWM_FAULT_PIN_DISABLE, 0, 0); //Open the PWM pin with timer 2 as the source and 100% duty cycle
-  SetDCOC2PWM(PR2 / 2); //Set the duty cycle of PWM pin to half of the period
-  
-    //Set up pwm pin 6 on pic32  
-  CloseOC3(); //Close the PWM pin
-  OpenOC3(OC_ON | OC_TIMER2_SRC | OC_PWM_FAULT_PIN_DISABLE, 0, 0); //Open the PWM pin with timer 2 as the source and 100% duty cycle
-  SetDCOC3PWM(PR2 / 2); //Set the duty cycle of PWM pin to half of the period
-  
-    //Set up pwm pin 9 on pic32  
-  CloseOC4(); //Close the PWM pin
-  OpenOC4(OC_ON | OC_TIMER2_SRC | OC_PWM_FAULT_PIN_DISABLE, 0, 0); //Open the PWM pin with timer 2 as the source and 100% duty cycle
-  SetDCOC4PWM(PR2 / 2); //Set the duty cycle of PWM pin to half of the period
-  
-    //Set up pwm pin 10 on pic32  
-  CloseOC5(); //Close the PWM pin
-  OpenOC5(OC_ON | OC_TIMER2_SRC | OC_PWM_FAULT_PIN_DISABLE, 0, 0); //Open the PWM pin with timer 2 as the source and 100% duty cycle
-  SetDCOC5PWM(PR2 / 2); //Set the duty cycle of PWM pin to half of the period
   
   digitalWrite(PIN_MOSFET_GATE_1, LOW);  //Initialize pins that need to be initialized
   digitalWrite(PIN_MAGNET_STATUS_1, LOW);
@@ -135,7 +68,21 @@ void setup() {
   //table [hashkey][2] is the direction
   for (i = 0; i < 125; i++){
     for (int j = 0; j < 4; j++){
-      delay_table [j][i][0] = ((i * 3) + 40) * 1;
+      if (i < 25){
+        delay_table [j][i][0] = ((i * 3) + 40) * 1.10;
+      }
+      else if (i < 50){
+        delay_table [j][i][0] = ((i * 3) + 40) * 1.05;
+      }
+      else if (i < 75){
+        delay_table [j][i][0] = ((i * 3) + 40) * 1.0;
+      }
+      else if (i < 100){
+        delay_table [j][i][0] = ((i * 3) + 40) * .95;
+      }
+      else{
+        delay_table [j][i][0] = ((i * 3) + 40) * .9;
+      }
       delay_table [j][i][1] = 5000;
       delay_table [j][i][2] = 1;
     }
@@ -269,20 +216,9 @@ void loop() {
 //Checking other side
 //********************************************************************************************************************
 //********************************************************************************************************************  
+    
   
-//  if (hold_table[1][0][1]){
-//    if (hold_table[1][0][0] < micros()){
-//      hold_table[1][0][1] = 0;
-//      //Serial.println("Hold table is less than micros()");
-//    }
-//  }
-  
-  
-  //Serial.println(hold_table[1][0][1]);
-  //hold_table[1][0][1] = 0;
-  //Check for entry into the second side  
-  //if (!hold_table[1][0][1] && checkBreak(PIN_DETECTOR_OUT_2_1)){  //Check for the first detector in the main loop.  After that we jump into this if statement state and handle all other detectors and the magnet
-  //if (hold_table[1][0][0] < micros() && checkBreak(PIN_DETECTOR_OUT_2_1)){  //Check for the first detector in the main loop.  After that we jump into this if statement state and handle all other detectors and the magnet
+ 
   if (checkBreak(PIN_DETECTOR_OUT_2_1)){ 
     timerInit = millis();  //Get the time stamp for the first detector break
     digitalWrite(PIN_MAGNET_STATUS_3, HIGH); //Set the electromagnet to "on"
@@ -369,7 +305,10 @@ void loop() {
       Serial.println(1000 / (max2 * 1.6)); //Gives us feet/second for the 7.5 inch section
       Serial.println("***************************************\n");  //Nice formatting  
     }  
-  }    
+  }
+
+
+    
 }
 
 
@@ -436,74 +375,12 @@ void adjustDelay (int location){
 }
 
 
-//The false break blip up above 1v happens right after we bit bang it in the ISR right?
-//And last for ~3 microseconds? About? idk
-
-extern "C"{
-  void __ISR(_TIMER_3_VECTOR, ipl3) Timer3Handler(void){
-    count++;
-    switch (count){
-      case 1:
-          digitalWrite(PIN_DETECTOR_VIN_1_1, LOW);
-          digitalWrite(PIN_DETECTOR_VIN_1_1, HIGH);
-          //delayMicroseconds(3);
-      break;
-      case 2:
-          digitalWrite(PIN_DETECTOR_VIN_1_2, LOW);
-          digitalWrite(PIN_DETECTOR_VIN_1_2, HIGH);
-      break;
-      case 3:
-          digitalWrite(PIN_DETECTOR_VIN_1_3, LOW);
-          digitalWrite(PIN_DETECTOR_VIN_1_3, HIGH);
-      break;
-      case 4:
-          digitalWrite(PIN_DETECTOR_VIN_1_4, LOW);
-          digitalWrite(PIN_DETECTOR_VIN_1_4, HIGH);
-      break;
-      case 5:
-          digitalWrite(PIN_DETECTOR_VIN_1_5, LOW);
-          digitalWrite(PIN_DETECTOR_VIN_1_5, HIGH);
-          delayMicroseconds(30);
-          //hold_table[0][4][1] = 1;
-          //hold_table[0][4][0] = micros() + 500;
-      break;
-      case 6:
-          digitalWrite(PIN_DETECTOR_VIN_2_1, LOW);
-          digitalWrite(PIN_DETECTOR_VIN_2_1, HIGH);
-          delayMicroseconds(30);
-          //hold_table[1][0][1] = 1;
-          //hold_table[1][0][0] = micros() + 500;
-          //hold_2_1 = micros() + 200;
-          //Serial.println(micros());
-      break;
-      case 7:
-          digitalWrite(PIN_DETECTOR_VIN_2_2, LOW);
-          digitalWrite(PIN_DETECTOR_VIN_2_2, HIGH);
-      break;
-      case 8:
-          digitalWrite(PIN_DETECTOR_VIN_2_3, LOW);
-          digitalWrite(PIN_DETECTOR_VIN_2_3, HIGH);
-      break;
-      case 9:
-          digitalWrite(PIN_DETECTOR_VIN_2_4, LOW);
-          digitalWrite(PIN_DETECTOR_VIN_2_4, HIGH);
-      break;
-      case 10:
-        count = 0;
-          digitalWrite(PIN_DETECTOR_VIN_2_5, LOW);
-          digitalWrite(PIN_DETECTOR_VIN_2_5, HIGH);
-      break;
-    }
-    //Serial.println(count);
-    IFS0CLR  = 0x00001000;  // Clear Timer interrupt status flag
-  }
-}
-
 
 
 /*
 
 */
+
 
 
 
