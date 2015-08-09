@@ -4,57 +4,57 @@
 #include <variables.h>
 
 void setup() {                
-  pinMode(PIN_DETECTOR_OUT_1_1, INPUT);  //Set up pins to outputs or inputs
-  pinMode(PIN_DETECTOR_OUT_1_2, INPUT);
-  pinMode(PIN_DETECTOR_OUT_1_3, INPUT);
-  pinMode(PIN_DETECTOR_OUT_1_4, INPUT);
-  pinMode(PIN_DETECTOR_OUT_1_5, INPUT);
-  pinMode(PIN_DETECTOR_OUT_2_1, INPUT);  //Set up pins to outputs or inputs
-  pinMode(PIN_DETECTOR_OUT_2_2, INPUT);
-  pinMode(PIN_DETECTOR_OUT_2_3, INPUT);
-  pinMode(PIN_DETECTOR_OUT_2_4, INPUT);
-  pinMode(PIN_DETECTOR_OUT_2_5, INPUT);
+  pinMode(PIN_DETECTOR_OUT[0], INPUT);  //Set up pins to outputs or inputs
+  pinMode(PIN_DETECTOR_OUT[1], INPUT);
+  pinMode(PIN_DETECTOR_OUT[2], INPUT);
+  pinMode(PIN_DETECTOR_OUT[3], INPUT);
+  pinMode(PIN_DETECTOR_OUT[4], INPUT);
+  pinMode(PIN_DETECTOR_OUT[5], INPUT);  //Set up pins to outputs or inputs
+  pinMode(PIN_DETECTOR_OUT[6], INPUT);
+  pinMode(PIN_DETECTOR_OUT[7], INPUT);
+  pinMode(PIN_DETECTOR_OUT[8], INPUT); 
+  pinMode(PIN_DETECTOR_OUT[9], INPUT);
       
-  pinMode(PIN_DETECTOR_STATUS_1_1, OUTPUT);
-  pinMode(PIN_DETECTOR_STATUS_1_2, OUTPUT);
-  pinMode(PIN_DETECTOR_STATUS_1_3, OUTPUT);
-  pinMode(PIN_DETECTOR_STATUS_1_4, OUTPUT);
-  pinMode(PIN_DETECTOR_STATUS_1_5, OUTPUT);
-  pinMode(PIN_DETECTOR_STATUS_2_1, OUTPUT);
-  pinMode(PIN_DETECTOR_STATUS_2_2, OUTPUT);
-  pinMode(PIN_DETECTOR_STATUS_2_3, OUTPUT);
-  pinMode(PIN_DETECTOR_STATUS_2_4, OUTPUT);
-  pinMode(PIN_DETECTOR_STATUS_2_5, OUTPUT);
+  pinMode(PIN_DETECTOR_STATUS[0], OUTPUT);
+  pinMode(PIN_DETECTOR_STATUS[1], OUTPUT);
+  pinMode(PIN_DETECTOR_STATUS[2], OUTPUT);
+  pinMode(PIN_DETECTOR_STATUS[3], OUTPUT);
+  pinMode(PIN_DETECTOR_STATUS[4], OUTPUT);
+  pinMode(PIN_DETECTOR_STATUS[5], OUTPUT);
+  pinMode(PIN_DETECTOR_STATUS[6], OUTPUT);
+  pinMode(PIN_DETECTOR_STATUS[7], OUTPUT);
+  pinMode(PIN_DETECTOR_STATUS[8], OUTPUT);
+  pinMode(PIN_DETECTOR_STATUS[9], OUTPUT);
   
-  pinMode(PIN_MOSFET_GATE_1, OUTPUT);
-  pinMode(PIN_MOSFET_GATE_2, OUTPUT);
-  pinMode(PIN_MOSFET_GATE_3, OUTPUT);
-  pinMode(PIN_MOSFET_GATE_4, OUTPUT);
+  pinMode(PIN_MOSFET_GATE[0], OUTPUT);
+  pinMode(PIN_MOSFET_GATE[1], OUTPUT);
+  pinMode(PIN_MOSFET_GATE[2], OUTPUT);
+  pinMode(PIN_MOSFET_GATE[3], OUTPUT);
   
-  pinMode(PIN_MAGNET_STATUS_1, OUTPUT);
-  pinMode(PIN_MAGNET_STATUS_2, OUTPUT);
-  pinMode(PIN_MAGNET_STATUS_3, OUTPUT);
-  pinMode(PIN_MAGNET_STATUS_4, OUTPUT);
+  pinMode(PIN_MOSFET_STATUS[0], OUTPUT);
+  pinMode(PIN_MOSFET_STATUS[1], OUTPUT);
+  pinMode(PIN_MOSFET_STATUS[2], OUTPUT);
+  pinMode(PIN_MOSFET_STATUS[3], OUTPUT);
   
-  digitalWrite(PIN_MOSFET_GATE_1, LOW);  //Initialize pins that need to be initialized
-  digitalWrite(PIN_MAGNET_STATUS_1, LOW);
-  digitalWrite(PIN_MOSFET_GATE_2, LOW);  //Initialize pins that need to be initialized
-  digitalWrite(PIN_MAGNET_STATUS_2, LOW);
-  digitalWrite(PIN_MOSFET_GATE_3, LOW);  //Initialize pins that need to be initialized
-  digitalWrite(PIN_MAGNET_STATUS_3, LOW);
-  digitalWrite(PIN_MOSFET_GATE_4, LOW);  //Initialize pins that need to be initialized
-  digitalWrite(PIN_MAGNET_STATUS_4, LOW);
+  digitalWrite(PIN_MOSFET_GATE[0], LOW);  //Initialize pins that need to be initialized
+  digitalWrite(PIN_MOSFET_STATUS[0], LOW);
+  digitalWrite(PIN_MOSFET_GATE[1], LOW);  //Initialize pins that need to be initialized
+  digitalWrite(PIN_MOSFET_STATUS[1], LOW);
+  digitalWrite(PIN_MOSFET_GATE[2], LOW);  //Initialize pins that need to be initialized
+  digitalWrite(PIN_MOSFET_STATUS[2], LOW);
+  digitalWrite(PIN_MOSFET_GATE[3], LOW);  //Initialize pins that need to be initialized
+  digitalWrite(PIN_MOSFET_STATUS[3], LOW);
  
-  digitalWrite(PIN_DETECTOR_STATUS_1_1, HIGH);  //Initialize pins that need to be initialized
-  digitalWrite(PIN_DETECTOR_STATUS_1_2, HIGH);  //Initialize pins that need to be initialized
-  digitalWrite(PIN_DETECTOR_STATUS_1_3, HIGH);  //Initialize pins that need to be initialized
-  digitalWrite(PIN_DETECTOR_STATUS_1_4, HIGH);  //Initialize pins that need to be initialized
-  digitalWrite(PIN_DETECTOR_STATUS_1_5, HIGH);  //Initialize pins that need to be initialized
-  digitalWrite(PIN_DETECTOR_STATUS_2_1, HIGH);  //Initialize pins that need to be initialized
-  digitalWrite(PIN_DETECTOR_STATUS_2_2, HIGH);  //Initialize pins that need to be initialized
-  digitalWrite(PIN_DETECTOR_STATUS_2_3, HIGH);  //Initialize pins that need to be initialized
-  digitalWrite(PIN_DETECTOR_STATUS_2_4, HIGH);  //Initialize pins that need to be initialized
-  digitalWrite(PIN_DETECTOR_STATUS_2_5, HIGH);  //Initialize pins that need to be initialized   
+  digitalWrite(PIN_DETECTOR_STATUS[0], HIGH);  //Initialize pins that need to be initialized
+  digitalWrite(PIN_DETECTOR_STATUS[1], HIGH);  //Initialize pins that need to be initialized
+  digitalWrite(PIN_DETECTOR_STATUS[2], HIGH);  //Initialize pins that need to be initialized
+  digitalWrite(PIN_DETECTOR_STATUS[3], HIGH);  //Initialize pins that need to be initialized
+  digitalWrite(PIN_DETECTOR_STATUS[4], HIGH);  //Initialize pins that need to be initialized
+  digitalWrite(PIN_DETECTOR_STATUS[5], HIGH);  //Initialize pins that need to be initialized
+  digitalWrite(PIN_DETECTOR_STATUS[6], HIGH);  //Initialize pins that need to be initialized
+  digitalWrite(PIN_DETECTOR_STATUS[7], HIGH);  //Initialize pins that need to be initialized
+  digitalWrite(PIN_DETECTOR_STATUS[8], HIGH);  //Initialize pins that need to be initialized
+  digitalWrite(PIN_DETECTOR_STATUS[9], HIGH);  //Initialize pins that need to be initialized   
     
    
   Serial.begin(9600);  
@@ -66,27 +66,92 @@ void setup() {
   //table [hashkey][0] is the delay time
   //table [hashkey][1] is the exit speed
   //table [hashkey][2] is the direction
-  for (i = 0; i < 125; i++){
-    for (int j = 0; j < 4; j++){
-      if (i < 25){
-        delay_table [j][i][0] = ((i * 3) + 40) * 1.10;
+   for (i = 0; i < 125; i++){
+      for  (j = 0; j < 4; j++){
+         if (i < 25){
+            switch (j){
+              case 0:
+                 delay_table [0][i][0] = ((i * 3) + 40) * .92;
+                 break;
+              case 1:
+                 delay_table [1][i][0] = ((i * 3) + 40) * .96;
+                 break;
+              case 2:
+                 delay_table [2][i][0] = ((i * 3) + 40) * 1.05;
+                 break;
+              case 3:
+                 delay_table [3][i][0] = ((i * 3) + 40) * .92;
+                 break;
+            }
+         }
+         else if (i < 50){
+            switch (j){
+              case 0:
+                 delay_table [0][i][0] = ((i * 3) + 40) * .94;
+                 break;
+              case 1:
+                 delay_table [1][i][0] = ((i * 3) + 40) * .98;
+                 break;
+              case 2:
+                 delay_table [2][i][0] = ((i * 3) + 40) * 1.07;
+                 break;
+              case 3:
+                 delay_table [3][i][0] = ((i * 3) + 40) * .94;
+                 break;
+            }
+         }
+         else if (i < 75){
+            switch (j){
+              case 0:
+                 delay_table [0][i][0] = ((i * 3) + 40) * .96;
+                 break;
+              case 1:
+                 delay_table [1][i][0] = ((i * 3) + 40) * 1.0;
+                 break;
+              case 2:
+                 delay_table [2][i][0] = ((i * 3) + 40) * 1.09;
+                 break;
+              case 3:
+                 delay_table [3][i][0] = ((i * 3) + 40) * .96;
+                 break;
+            }
+         }
+         else if (i < 100){
+            switch (j){
+              case 0:
+                 delay_table [0][i][0] = ((i * 3) + 40) * .98;
+                 break;
+              case 1:
+                 delay_table [1][i][0] = ((i * 3) + 40) * 1.02;
+                 break;
+              case 2:
+                 delay_table [2][i][0] = ((i * 3) + 40) * 1.11;
+                 break;
+              case 3:
+                 delay_table [3][i][0] = ((i * 3) + 40) * .98;
+                 break;
+            }
+         }
+         else{
+            switch (j){
+              case 0:
+                 delay_table [0][i][0] = ((i * 3) + 40) * 1.0;
+                 break;
+              case 1:
+                 delay_table [1][i][0] = ((i * 3) + 40) * 1.04;
+                 break;
+              case 2:
+                 delay_table [2][i][0] = ((i * 3) + 40) * 1.13;
+                 break;
+              case 3:
+                 delay_table [3][i][0] = ((i * 3) + 40) * 1.00;
+                 break;
+            }
+         }
+         delay_table [j][i][1] = 5000;
+         delay_table [j][i][2] = 1;
       }
-      else if (i < 50){
-        delay_table [j][i][0] = ((i * 3) + 40) * 1.05;
-      }
-      else if (i < 75){
-        delay_table [j][i][0] = ((i * 3) + 40) * 1.0;
-      }
-      else if (i < 100){
-        delay_table [j][i][0] = ((i * 3) + 40) * .95;
-      }
-      else{
-        delay_table [j][i][0] = ((i * 3) + 40) * .9;
-      }
-      delay_table [j][i][1] = 5000;
-      delay_table [j][i][2] = 1;
-    }
-  }
+   }
   
   //(entrySpeed - 40)/3;
   
@@ -112,13 +177,13 @@ void setup() {
 
 void loop() {
   //Check for entry into the first side
-  if (checkBreak(PIN_DETECTOR_OUT_1_1)){  //Check for the first detector in the main loop.  After that we jump into this if statement state and handle all other detectors and the magnet
+  if (checkBreak(PIN_DETECTOR_OUT[0])){  //Check for the first detector in the main loop.  After that we jump into this if statement state and handle all other detectors and the magnet
     timerInit = millis();  //Get the time stamp for the first detector break
-    digitalWrite(PIN_MAGNET_STATUS_1, HIGH); //Set the electromagnet to "on"
-    digitalWrite(PIN_MOSFET_GATE_1, HIGH);        //Set the electromagnet status led on
-    digitalWrite(PIN_DETECTOR_STATUS_1_1, LOW);    //Show that the beam has been broken
+    digitalWrite(PIN_MOSFET_STATUS[0], HIGH); //Set the electromagnet to "on"
+    digitalWrite(PIN_MOSFET_GATE[0], HIGH);        //Set the electromagnet status led on
+    digitalWrite(PIN_DETECTOR_STATUS[0], LOW);    //Show that the beam has been broken
     
-    while (!checkBreak(PIN_DETECTOR_OUT_1_2) && (millis() - timerInit) < 1500){  //Wait for the next beam break or time out at 1.5 seconds
+    while (!checkBreak(PIN_DETECTOR_OUT[1]) && (millis() - timerInit) < 1500){  //Wait for the next beam break or time out at 1.5 seconds
     }
     
     timerDif = millis();  
@@ -129,31 +194,31 @@ void loop() {
     //table [hashkey][1] is the exit speed
     hashkey = constrain((entrySpeed - 40)/3, 0, 124);
     timeToReset = timerDif + delay_table[0][hashkey][0]; //Based on the entry speed, set the time to reset 
-    digitalWrite(PIN_DETECTOR_STATUS_1_2, LOW);    //Show that the beam has been broken
-    printEntry(1);   
+    digitalWrite(PIN_DETECTOR_STATUS[1], LOW);    //Show that the beam has been broken
+    printEntry(0);   
     
     while (timeToReset > millis()){ //Do nothing while we wait for the reset time
     } 
     
-    digitalWrite(PIN_MOSFET_GATE_1, LOW);        //Shut off the mosfet to the electromagnet 
-    digitalWrite(PIN_MAGNET_STATUS_1, LOW); //Turn off the electromagnet status LED
-    Serial.print("Electromagnet 1 Off\n");
+    digitalWrite(PIN_MOSFET_GATE[0], LOW);        //Shut off the mosfet to the electromagnet 
+    digitalWrite(PIN_MOSFET_STATUS[0], LOW); //Turn off the electromagnet status LED
+    Serial.print("Electromagnet 0 Off\n");
     
-    while (!checkBreak(PIN_DETECTOR_OUT_1_3) && (millis() - timeToReset) < 2000){  //Wait for the next beam break or time out at 2 seconds after it was supposed to reset        
+    while (!checkBreak(PIN_DETECTOR_OUT[2]) && (millis() - timeToReset) < 2000){  //Wait for the next beam break or time out at 2 seconds after it was supposed to reset        
     }
     
     timerInit = millis();
     exitSpeed = timerInit - timerDif;
-    digitalWrite(PIN_MAGNET_STATUS_2, HIGH); //Set the electromagnet to "on"
-    digitalWrite(PIN_MOSFET_GATE_2, HIGH);        //Set the electromagnet status led on
-    digitalWrite(PIN_DETECTOR_STATUS_1_3, LOW);    //Show that the beam has been broken
+    digitalWrite(PIN_MOSFET_STATUS[1], HIGH); //Set the electromagnet to "on"
+    digitalWrite(PIN_MOSFET_GATE[1], HIGH);        //Set the electromagnet status led on
+    digitalWrite(PIN_DETECTOR_STATUS[2], LOW);    //Show that the beam has been broken
     adjustDelay(0);
     delay_table[0][hashkey][1] = exitSpeed;  
-    printExit(1);
+    printExit(0);
     
     //********************************************************************************************************************
     
-    while (!checkBreak(PIN_DETECTOR_OUT_1_4) && (millis() - timerInit) < 1500){  //Wait for the next beam break or time out at 1.5 seconds
+    while (!checkBreak(PIN_DETECTOR_OUT[3]) && (millis() - timerInit) < 1500){  //Wait for the next beam break or time out at 1.5 seconds
     }
     
     timerDif = millis();  
@@ -161,15 +226,15 @@ void loop() {
     //hashkey = (entrySpeed - 40)/3;
     hashkey = constrain((entrySpeed - 40)/3, 0, 124);
     timeToReset = timerDif + delay_table[1] [hashkey][0]; //Based on the entry speed, set the time to reset 
-    digitalWrite(PIN_DETECTOR_STATUS_1_4, LOW);    //Show that the beam has been broken
-    printEntry(2);
+    digitalWrite(PIN_DETECTOR_STATUS[3], LOW);    //Show that the beam has been broken
+    printEntry(1);
     
     while (timeToReset > millis()){ //Do nothing while we wait for the reset time
     } 
     
-    digitalWrite(PIN_MOSFET_GATE_2, LOW);        //Shut off the mosfet to the electromagnet 
-    digitalWrite(PIN_MAGNET_STATUS_2, LOW); //Turn off the electromagnet status LED
-    Serial.print("Electromagnet 2 Off\n");
+    digitalWrite(PIN_MOSFET_GATE[1], LOW);        //Shut off the mosfet to the electromagnet 
+    digitalWrite(PIN_MOSFET_STATUS[1], LOW); //Turn off the electromagnet status LED
+    Serial.print("Electromagnet 1 Off\n");
     
     /*while (hold_table[0][4][1]){
       if (hold_table[0][4][0] < micros()){
@@ -177,28 +242,28 @@ void loop() {
       }
     }*/
     
-    //while (hold_table[0][4][0] < micros() && !checkBreak(PIN_DETECTOR_OUT_1_5) && (millis() - timeToReset) < 2000){  //Wait for the next beam break or time out at 2 seconds after it was supposed to reset        
-    while (!checkBreak(PIN_DETECTOR_OUT_1_5) && (millis() - timeToReset) < 2000){
+    //while (hold_table[0][4][0] < micros() && !checkBreak(PIN_DETECTOR_OUT[4]) && (millis() - timeToReset) < 2000){  //Wait for the next beam break or time out at 2 seconds after it was supposed to reset        
+    while (!checkBreak(PIN_DETECTOR_OUT[4]) && (millis() - timeToReset) < 2000){
     }
     
     timerInit = millis();
     exitSpeed = timerInit - timerDif;
-    digitalWrite(PIN_DETECTOR_STATUS_1_5, LOW);    //Show that the beam has been broken
+    digitalWrite(PIN_DETECTOR_STATUS[4], LOW);    //Show that the beam has been broken
     adjustDelay(1);
     delay_table[1][hashkey][1] = exitSpeed;    
-    printExit(2);
+    printExit(1);
     Serial.println("-----------------------------------------\n");  //Nice formatting
        
-    delay(50);
-    digitalWrite(PIN_DETECTOR_STATUS_1_1, HIGH);
-    delay(50);
-    digitalWrite(PIN_DETECTOR_STATUS_1_2, HIGH);  //Reset status LEDs that we are not going to checking
-    delay(50);
-    digitalWrite(PIN_DETECTOR_STATUS_1_3, HIGH);
-    delay(50);
-    digitalWrite(PIN_DETECTOR_STATUS_1_4, HIGH);
-    delay(50);
-    digitalWrite(PIN_DETECTOR_STATUS_1_5, HIGH);
+    delay(5);
+    digitalWrite(PIN_DETECTOR_STATUS[0], HIGH);
+    delay(5);
+    digitalWrite(PIN_DETECTOR_STATUS[1], HIGH);  //Reset status LEDs that we are not going to checking
+    delay(5);
+    digitalWrite(PIN_DETECTOR_STATUS[2], HIGH);
+    delay(5);
+    digitalWrite(PIN_DETECTOR_STATUS[3], HIGH);
+    delay(5);
+    digitalWrite(PIN_DETECTOR_STATUS[4], HIGH);
  
     if (exitSpeed < max1){
       max1 = exitSpeed;
@@ -208,24 +273,24 @@ void loop() {
       Serial.println(1000 / (max1 * 1.6)); //Gives us feet/second for the 7.5 inch section
       Serial.println("***************************************\n");  //Nice formatting  
     }  
-        
+    detectFalseBreak();    
   }      
 
-//********************************************************************************************************************  
-//********************************************************************************************************************  
-//Checking other side
-//********************************************************************************************************************
-//********************************************************************************************************************  
-    
+  //********************************************************************************************************************  
+  //********************************************************************************************************************  
+  //Checking other side
+  //********************************************************************************************************************
+  //********************************************************************************************************************  
+      
   
  
-  if (checkBreak(PIN_DETECTOR_OUT_2_1)){ 
+  if (checkBreak(PIN_DETECTOR_OUT[5])){ 
     timerInit = millis();  //Get the time stamp for the first detector break
-    digitalWrite(PIN_MAGNET_STATUS_3, HIGH); //Set the electromagnet to "on"
-    digitalWrite(PIN_MOSFET_GATE_3, HIGH);        //Set the electromagnet status led on
-    digitalWrite(PIN_DETECTOR_STATUS_2_1, LOW);    //Show that the beam has been broken
+    digitalWrite(PIN_MOSFET_STATUS[2], HIGH); //Set the electromagnet to "on"
+    digitalWrite(PIN_MOSFET_GATE[2], HIGH);        //Set the electromagnet status led on
+    digitalWrite(PIN_DETECTOR_STATUS[5], LOW);    //Show that the beam has been broken
     
-    while (!checkBreak(PIN_DETECTOR_OUT_2_2) && (millis() - timerInit) < 1500){  //Wait for the next beam break or time out at 1.5 seconds
+    while (!checkBreak(PIN_DETECTOR_OUT[6]) && (millis() - timerInit) < 1500){  //Wait for the next beam break or time out at 1.5 seconds
     }
     
     timerDif = millis();  
@@ -233,31 +298,31 @@ void loop() {
     //hashkey = (entrySpeed - 40)/3;
     hashkey = constrain((entrySpeed - 40)/3, 0, 124);
     timeToReset = timerDif + delay_table[2] [hashkey][0]; //Based on the entry speed, set the time to reset
-    digitalWrite(PIN_DETECTOR_STATUS_2_2, LOW);    //Show that the beam has been broken
-    printEntry(3);
+    digitalWrite(PIN_DETECTOR_STATUS[6], LOW);    //Show that the beam has been broken
+    printEntry(2);
     
     while (timeToReset > millis()){ //Do nothing while we wait for the reset time
     } 
     
-    digitalWrite(PIN_MOSFET_GATE_3, LOW);        //Shut off the mosfet to the electromagnet 
-    digitalWrite(PIN_MAGNET_STATUS_3, LOW); //Turn off the electromagnet status LED
-    Serial.print("Electromagnet 3 Off\n");
+    digitalWrite(PIN_MOSFET_GATE[2], LOW);        //Shut off the mosfet to the electromagnet 
+    digitalWrite(PIN_MOSFET_STATUS[2], LOW); //Turn off the electromagnet status LED
+    Serial.print("Electromagnet 2 Off\n");
     
-    while (!checkBreak(PIN_DETECTOR_OUT_2_3) && (millis() - timeToReset) < 2000){  //Wait for the next beam break or time out at 2 seconds after it was supposed to reset        
+    while (!checkBreak(PIN_DETECTOR_OUT[7]) && (millis() - timeToReset) < 2000){  //Wait for the next beam break or time out at 2 seconds after it was supposed to reset        
     }
     
     timerInit = millis();
     exitSpeed = timerInit - timerDif;
-    digitalWrite(PIN_MAGNET_STATUS_4, HIGH); //Set the electromagnet to "on"
-    digitalWrite(PIN_MOSFET_GATE_4, HIGH);        //Set the electromagnet status led on
-    digitalWrite(PIN_DETECTOR_STATUS_2_3, LOW);    //Show that the beam has been broken
+    digitalWrite(PIN_MOSFET_STATUS[3], HIGH); //Set the electromagnet to "on"
+    digitalWrite(PIN_MOSFET_GATE[3], HIGH);        //Set the electromagnet status led on
+    digitalWrite(PIN_DETECTOR_STATUS[7], LOW);    //Show that the beam has been broken
     adjustDelay(2);
     delay_table[2][hashkey][1] = exitSpeed;
-    printExit(3);
+    printExit(2);
     
     //********************************************************************************************************************
     
-    while (!checkBreak(PIN_DETECTOR_OUT_2_4) && (millis() - timerInit) < 1500){  //Wait for the next beam break or time out at 1.5 seconds
+    while (!checkBreak(PIN_DETECTOR_OUT[8]) && (millis() - timerInit) < 1500){  //Wait for the next beam break or time out at 1.5 seconds
     }
     
     timerDif = millis();  
@@ -265,37 +330,37 @@ void loop() {
     //hashkey = (entrySpeed - 40)/3;
     hashkey = constrain((entrySpeed - 40)/3, 0, 124);
     timeToReset = timerDif + delay_table[3][hashkey][0]; //Based on the entry speed, set the time to reset
-    digitalWrite(PIN_DETECTOR_STATUS_2_4, LOW);    //Show that the beam has been broken
-    printEntry(4);
+    digitalWrite(PIN_DETECTOR_STATUS[8], LOW);    //Show that the beam has been broken
+    printEntry(3);
     
     while (timeToReset > millis()){ //Do nothing while we wait for the reset time
     } 
     
-    digitalWrite(PIN_MOSFET_GATE_4, LOW);        //Shut off the mosfet to the electromagnet 
-    digitalWrite(PIN_MAGNET_STATUS_4, LOW); //Turn off the electromagnet status LED
-    Serial.print("Electromagnet 4 Off\n");
+    digitalWrite(PIN_MOSFET_GATE[3], LOW);        //Shut off the mosfet to the electromagnet 
+    digitalWrite(PIN_MOSFET_STATUS[3], LOW); //Turn off the electromagnet status LED
+    Serial.print("Electromagnet 3 Off\n");
     
-    while (!checkBreak(PIN_DETECTOR_OUT_2_5) && (millis() - timeToReset) < 2000){  //Wait for the next beam break or time out at 2 seconds after it was supposed to reset        
+    while (!checkBreak(PIN_DETECTOR_OUT[9]) && (millis() - timeToReset) < 2000){  //Wait for the next beam break or time out at 2 seconds after it was supposed to reset        
     }
     
     timerInit = millis();
     exitSpeed = timerInit - timerDif;
-    digitalWrite(PIN_DETECTOR_STATUS_2_5, LOW);    //Show that the beam has been broken
+    digitalWrite(PIN_DETECTOR_STATUS[9], LOW);    //Show that the beam has been broken
     adjustDelay(3); 
     delay_table[3][hashkey][1] = exitSpeed;    
-    printExit(4);
+    printExit(3);
     Serial.println("-----------------------------------------\n");  //Nice formatting
     
-    delay(50);
-    digitalWrite(PIN_DETECTOR_STATUS_2_1, HIGH);
-    delay(50);
-    digitalWrite(PIN_DETECTOR_STATUS_2_2, HIGH);  //Reset status LEDs that we are not going to checking
-    delay(50);
-    digitalWrite(PIN_DETECTOR_STATUS_2_3, HIGH);
-    delay(50);
-    digitalWrite(PIN_DETECTOR_STATUS_2_4, HIGH);
-    delay(50);
-    digitalWrite(PIN_DETECTOR_STATUS_2_5, HIGH); 
+    delay(5);
+    digitalWrite(PIN_DETECTOR_STATUS[5], HIGH);
+    delay(5);
+    digitalWrite(PIN_DETECTOR_STATUS[6], HIGH);  //Reset status LEDs that we are not going to checking
+    delay(5);
+    digitalWrite(PIN_DETECTOR_STATUS[7], HIGH);
+    delay(5);
+    digitalWrite(PIN_DETECTOR_STATUS[8], HIGH);
+    delay(5);
+    digitalWrite(PIN_DETECTOR_STATUS[9], HIGH); 
   
     if (exitSpeed < max2){
       max2 = exitSpeed;
@@ -304,11 +369,25 @@ void loop() {
       Serial.print(" milliseconds.\nIn feet/second: ");
       Serial.println(1000 / (max2 * 1.6)); //Gives us feet/second for the 7.5 inch section
       Serial.println("***************************************\n");  //Nice formatting  
-    }  
+    }
+    detectFalseBreak();
   }
 
+}
 
-    
+void accelerate(startPin){
+  
+}
+
+
+void detectFalseBreak(){
+  int i = 0;
+  for (i = 0; i < 10; i++){
+    while (checkBreak(PIN_DETECTOR_OUT[i])){
+      Serial.print("False break found on detector: ");  //Display info
+      Serial.println(i);  //Display info
+    } 
+  }
 }
 
 
@@ -317,7 +396,7 @@ int checkBreak(int pin){
   if (digitalRead (pin)){ //If the signal drops out
     if (digitalRead (pin)){
       //Serial.print("! Break detected on pin: "); //Print
-      Serial.println(pin);
+      //Serial.println(pin);
       return 1;
     }
   }
@@ -345,7 +424,7 @@ void printEntry (int location){  //We can print entryspeed, hashkey, and time to
   Serial.print("Hashkey: "); 
   Serial.println(hashkey);
   Serial.print("Time to reset set to: "); 
-  Serial.println(delay_table[location - 1][hashkey][0]);  
+  Serial.println(delay_table[location][hashkey][0]);  
 }
 
 
