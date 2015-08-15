@@ -3,6 +3,7 @@ int PIN_MOSFET_GATE[4] = {32,33,34,35};
 int PIN_DETECTOR_OUT[10]    = {24,26,29,31,27,25,23,28,30,22};
 int PIN_DETECTOR_STATUS[10] = {37,39,41,43,45,36,38,40,42,44};
 int PIN_MOSFET_STATUS[4] = {46,47,48,49};
+int PWMFanPin = 9;
 
 unsigned long timeToReset = 0, timerInit = 0, timerDif = 0;  //Global variable declaration
 int count = 0, i = 0, j = 0, hashkey = 0, entrySpeed = 0, exitSpeed = 0, max1 = 5000, max2 = 5000;
@@ -11,7 +12,21 @@ int delay_table[4][125][3];
 unsigned long hold_table[2][5][2];
 int hold_2_1 = 0;
 
-void setup() {                
+void setup() {
+
+  pinMode(PWMFanPin, OUTPUT);  // enable the PWM output (you now have a PWM signal on digital pin 3)
+  
+  TCCR2A = 0;// set entire TCCR2A register to 0
+  TCCR2B = 0;// same for TCCR2B
+  TCNT2  = 0;//initialize counter value to 0
+
+  //https://bennthomsen.wordpress.com/arduino/peripherals/timers/
+  TCCR2A = _BV(COM2A1) | _BV(COM2B1) | _BV(WGM21) | _BV(WGM20);
+  TCCR2B = _BV(WGM22) | _BV(CS21); //8 prescaler
+  OCR2A = 79;  // aiming for 25kHz
+  //OCR2B = 35;  // set the PWM duty cycl
+  setFanPercent(15);
+    
   pinMode(PIN_DETECTOR_OUT[0], INPUT);  //Set up pins to outputs or inputs
   pinMode(PIN_DETECTOR_OUT[1], INPUT);
   pinMode(PIN_DETECTOR_OUT[2], INPUT);
@@ -178,6 +193,8 @@ void setup() {
   
   delay(1000); //Wait for PWM pins to start and ISRs to enter and everything to even out before we loop
   Serial.println("Ready");
+
+
 }
 
 
@@ -461,7 +478,15 @@ void adjustDelay (int location){
   }
 }
 
-
+void setFanPercent(int percent){
+  float setVal = float(percent);
+  
+  setVal /= 100;
+  
+  setVal *= 79;
+  
+  OCR2B = int(setVal); 
+}
 
 
 /*
