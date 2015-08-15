@@ -1,6 +1,15 @@
 
-#include <pins.h>
-#include <variables.h>
+int PIN_MOSFET_GATE[4] = {32,33,34,35};
+int PIN_DETECTOR_OUT[10]    = {24,26,29,31,27,25,23,28,30,22};
+int PIN_DETECTOR_STATUS[10] = {37,39,41,43,45,36,38,40,42,44};
+int PIN_MOSFET_STATUS[4] = {46,47,48,49};
+
+unsigned long timeToReset = 0, timerInit = 0, timerDif = 0;  //Global variable declaration
+int count = 0, i = 0, j = 0, hashkey = 0, entrySpeed = 0, exitSpeed = 0, max1 = 5000, max2 = 5000;
+
+int delay_table[4][125][3];
+unsigned long hold_table[2][5][2];
+int hold_2_1 = 0;
 
 void setup() {                
   pinMode(PIN_DETECTOR_OUT[0], INPUT);  //Set up pins to outputs or inputs
@@ -10,7 +19,7 @@ void setup() {
   pinMode(PIN_DETECTOR_OUT[4], INPUT);
   pinMode(PIN_DETECTOR_OUT[5], INPUT);  //Set up pins to outputs or inputs
   pinMode(PIN_DETECTOR_OUT[6], INPUT);
-  pinMode(PIN_DETECTOR_OUT[7], INPUT);
+  pinMode(PIN_DETECTOR_OUT[7], INPUT); 
   pinMode(PIN_DETECTOR_OUT[8], INPUT); 
   pinMode(PIN_DETECTOR_OUT[9], INPUT);
       
@@ -374,9 +383,9 @@ void loop() {
 
 }
 
-void accelerate(startPin){
+//void accelerate(startPin){
   
-}
+//}
 
 
 void detectFalseBreak(){
