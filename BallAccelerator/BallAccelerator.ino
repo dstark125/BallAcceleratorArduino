@@ -23,6 +23,8 @@ int delay_table[4][125][3];
 unsigned long hold_table[2][5][2];
 int hold_2_1 = 0;
 
+char lcdCharArr[73] = "Welcome to the ball bearing accelerator!";
+
 static const byte ASCII[][5] =
 {
  {0x00, 0x00, 0x00, 0x00, 0x00} // 20  
@@ -294,7 +296,13 @@ void setup() {
 
   LcdInitialise();
   LcdClear();
-  LcdString("Hello World!");
+  LcdPrint(lcdCharArr);
+  delay(3000);
+  LcdPrint("These are some");
+  delay(3000);
+  LcdPrint("random strings that will");
+  delay(3000);
+  LcdPrint("vary in length but should not overflow.");
   
 }
 
@@ -581,6 +589,49 @@ void adjustDelay (int location){
 
 
 
+void LcdPrint(char *characters){
+  int i = 0, stillChars = 1;
+
+  for (i = 0; i < 72; i++){
+    if (stillChars){
+      if (*characters == '\0'){
+        stillChars = 0;
+        lcdCharArr[i] = 32;
+      }
+      else{
+        lcdCharArr[i] = *characters++;
+      }
+    }
+    else{
+      lcdCharArr[i] = 32;
+    }
+    
+  }
+  lcdCharArr[i] = '\0';
+
+  LcdString(lcdCharArr);
+}
+
+
+//Work in progress
+char * LcdFixSpaces(char *characters){
+  int lastSpace = 0, totalCount = 0, charCount;
+  
+  while (*characters && totalCount < 73)
+  {
+    if (*characters == 32){
+
+    }
+    totalCount++;
+    charCount++;
+  }
+}
+
+
+char * StringShift(int spaces){
+  
+}
+
 
 void LcdCharacter(char character)
 {
@@ -610,11 +661,12 @@ void LcdInitialise(void)
   digitalWrite(PIN_RESET, LOW);
   digitalWrite(PIN_RESET, HIGH);
   LcdWrite(LCD_C, 0x21 );  // LCD Extended Commands.
-  LcdWrite(LCD_C, 0xB1 );  // Set LCD Vop (Contrast). 
+  LcdWrite(LCD_C, 0xB6 );  // Set LCD Vop (Contrast). 
   LcdWrite(LCD_C, 0x04 );  // Set Temp coefficent. //0x04
   LcdWrite(LCD_C, 0x14 );  // LCD bias mode 1:48. //0x13
   LcdWrite(LCD_C, 0x20 );  // LCD Basic Commands
   LcdWrite(LCD_C, 0x0C );  // LCD in normal mode.
+
 }
 
 void LcdString(char *characters)
