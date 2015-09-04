@@ -14,7 +14,7 @@ int hold_2_1 = 0;
 
 void setup() {
 
-  pinMode(PWMFanPin, OUTPUT);  // enable the PWM output (you now have a PWM signal on digital pin 3)
+  pinMode(PWMFanPin, OUTPUT);  // enable the PWM output (you now have a PWM signal on digital pin 9)
   
   TCCR2A = 0;// set entire TCCR2A register to 0
   TCCR2B = 0;// same for TCCR2B
@@ -25,6 +25,12 @@ void setup() {
   TCCR2B = _BV(WGM22) | _BV(CS21); //8 prescaler
   OCR2A = 79;  // aiming for 25kHz
   //OCR2B = 35;  // set the PWM duty cycl
+  setFanPercent(15);
+  delay(4000);
+  setFanPercent(50);
+  delay(4000);
+  setFanPercent(100);
+  delay(4000);
   setFanPercent(15);
     
   pinMode(PIN_DETECTOR_OUT[0], INPUT);  //Set up pins to outputs or inputs
