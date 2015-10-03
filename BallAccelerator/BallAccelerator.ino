@@ -11,11 +11,15 @@
 #define LCD_X     84
 #define LCD_Y     48
 
+//Change to define insead of int
+//Delete unwanted variables
+
+int PWMFanPin = 9;
+
 int PIN_MOSFET_GATE[4] = {32,33,34,35};
 int PIN_DETECTOR_OUT[10]    = {24,26,29,31,27,25,23,28,30,22};
 int PIN_DETECTOR_STATUS[10] = {37,39,41,43,45,36,38,40,42,44};
 int PIN_MOSFET_STATUS[4] = {46,47,48,49};
-int PWMFanPin = 9;
 
 unsigned long timeToReset = 0, timerInit = 0, timerDif = 0;  //Global variable declaration
 int count = 0, i = 0, j = 0, hashkey = 0, entrySpeed = 0, exitSpeed = 0, max1 = 5000, max2 = 5000;
